@@ -1,0 +1,29 @@
+<div>
+    <!--Multiple images option-->
+    <div ng-if="isMultiple== 'true' && !uploadOnceDone " class="dropbox center">
+        Drop the required files here
+    </div>
+    <!--Single image option-->
+    <div class="field" ng-if="isMultiple == 'false' && !uploadOnceDone">
+        <label for=""> Post Title Image</label> 
+        <input type="file" ng-required="!isEditPost " name="Title image">
+    </div>
+    <!--end-->
+    <div class="ui raised segment" ng-if="files.length > 0">
+        <div class="gallery">
+            <div class="item" ng-repeat="file in files">
+                <image class="image" ng-if="file.isImage" ng-class="{single:isMultiple=='false'}" ng-src="{{file.localImageUrl}}" customload></image>
+                <button ng-if="!file.isUploaded" ng-click="removeSelection($index)" class="remove">
+                X
+            </button>
+                <button ng-if="file.isUploaded" class="checkmark"></button>
+            </div>
+        </div>
+        <button ng-if="!uploadOnceDone && files" class="ui blue basic button margin-center " ng-click="uploadToFirebase('hey')">Upload</button>
+        <div class="ui labeled button margin-center" tabindex="0">
+            <div class="ui green button">Uploaded:</div>
+            <span class="ui basic green left pointing label">{{uploadsCounter}}</span>
+        </div>
+    </div>
+    <!-- multiple images End-->
+</div>

@@ -1,0 +1,85 @@
+<div class="ui container">
+    <div class="ui  segment">
+        <form class="ui form" ng-submit="submitForm()">
+        <div class="ui form">
+            <div class="field">
+                <label for="Title">Post Title</label></form>
+                <input ng-model="formData.title" required placeholder="Post title" rows="1" cols="10"> </input>
+            </div>
+           
+            <!--single files-->
+            <handle-files  multiple="false" posttype="posttype" prefilleddata="formData" validuploadsize="2"></handle-files>
+            <!--Single file end-->
+            <div class="three fields">
+                <div class="field">
+                    <label>Day</label>
+                    <input type="number" max="31" ng-model="formData.day" required placeholder="day">
+                </div>
+                <div class="field">
+                    <label>Month</label>
+                    <select class="ui search dropdown" required ng-model="formData.month">
+                 <option value="">Select Month</option>
+                 <option ng-repeat="month in months" value="{{month}}">{{month}}</option>
+            </select>
+                </div>
+                <div class="field">
+                    <label>Year</label>
+                    <input type="number" ng-model="formData.year" required placeholder="year">
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="ui stackable two column grid">
+                <div class="column">
+                    <div class="ui segment">
+                        <h4 class="ui header"> Description of Event.</h4>
+                        <textarea required ng-model="formData.description" placeholder="Description" rows="3" cols="85"> </textarea>
+                        <br>
+                        <textarea required ng-model="formData.description_para1" placeholder="Para 1" rows="2" cols="85"> </textarea>
+                        <br>
+                        <textarea required ng-model="formData.description_para2" placeholder="Post 2" rows="2" cols="85"> </textarea>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="ui segment">
+                        <h4 class="ui header">
+                            Extra Details.
+                        </h4>
+                        <div class="inline fields">
+                            <div class=" field">
+                                <label>Room No</label>
+                                <input required type="text" ng-model="formData.registrationDetails.room_no" placeholder="Room no">
+                            </div>
+                        </div>
+                        <div class="inline fields">
+                            <div class=" field">
+                                <label>Timings</label>
+                                <input required type="text" ng-model="formData.registrationDetails.timings" placeholder="Timings (2 am to 5 am)">
+                            </div>
+                        </div>
+                        <div class="inline fields">
+                            <div class=" field">
+                                <label>Contact</label>
+                                <input required type="number" ng-model="formData.registrationDetails.contact_no" placeholder="Contact No">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <!--multiple files-->
+            <handle-files  multiple="true" posttype="posttype" prefilleddata="formData" validuploadsize="2"></handle-files>
+            <!--<p>{{status}}</p>-->
+            <!--<button type="text" >Save</button>-->
+            <div class="center" ng-if="liveUrl">  
+                <a ng-href="{{liveUrl}}" target="_blank">Click To See Preview</a> 
+             </div>
+            <div class="ui inverted  segment" style="top: 100px;position: relative">
+                <input type="submit" class="fluid ui inverted green button"  value="{{postSubmitTypeText}}"/>
+            </div>
+        </div>
+
+        </form>
+    </div>
+</div>

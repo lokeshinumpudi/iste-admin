@@ -1,0 +1,10 @@
+<div class="scroll-div">
+    <div class="posts-container">
+        <div class="each-post" ng-class="{editable:post.isPostEditable}" ng-repeat="post in data" ng-click="selectPostToEdit(post)">
+            <p class="title"> {{post.title}} :</p>
+            <div class="date">{{post.day}}-{{post.month}}-{{post.year}}</div>
+        </div>
+    </div>
+
+    
+</div>
