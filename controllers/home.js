@@ -49,7 +49,7 @@ function scrollingPosts() {
             data: "=",
             callfnc: "&"
         },
-        templateUrl: "partials/scrollingPosts.html",
+        templateUrl: "partials/scrollingposts.html",
         link: function ($scope, $ele, $attrs) {
 
             $scope.selectPostToEdit = function (post) {
