@@ -30,7 +30,7 @@
         <div ng-repeat="eachAnouncement in $ctrl.selectedannouncements" target="_blank" class="ui label">
             {{eachAnouncement.announcement}}
             <i class="remove icon" ng-click="$ctrl.removeAnnouncement(eachAnouncement)"></i>
-            <a ng-href="eachAnouncement.link" target="_blank"><i class="linkify icon"></i> </a>
+            <a ng-href="{{eachAnouncement.link}}" target="_blank"><i class="linkify icon"></i> </a>
         </div>
     </div>
     <div class="ui segment">
@@ -41,7 +41,7 @@
             <div ng-repeat="eachAnouncement in $ctrl.allannouncements" target="_blank" class="ui label">
                 {{eachAnouncement.announcement}}
                 <i class="add circle icon" ng-click="$ctrl.selectAnnouncement(eachAnouncement)"></i>
-                <a ng-href="eachAnouncement.link" target="_blank"><i class="linkify icon"></i> </a>
+                <a ng-href="{{eachAnouncement.link}}" target="_blank"><i class="linkify icon"></i> </a>
             </div>
         </div>
     </div>
