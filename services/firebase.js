@@ -20,19 +20,19 @@ function fbase($q) {
             messagingSenderId: "711321350575"
         };
 
-            firebase.initializeApp(config);
+        firebase.initializeApp(config);
 
-           
-            firebase.auth()
-                    .signInAnonymously()
-                    .catch(function(e){
-                        var errorCode = e.code;
-                        var errorMessage = e.message;
-                        console.error(errorCode);
-                    });
 
-                        
-           
+        firebase.auth()
+            .signInAnonymously()
+            .catch(function (e) {
+                var errorCode = e.code;
+                var errorMessage = e.message;
+                console.error(errorCode);
+            });
+
+
+
     } //initFirebase
 
     function uploadImages(file) {
@@ -146,14 +146,83 @@ function fbase($q) {
 
 
 
+    function postAnnouncement(anc) {
+        var deferred = $q.defer();
+        if (db == null) {
+            db = firebase.database();
+        }
+        console.log(anc);
+        var childRef = db.ref("announcements").push();
+        var redId = childRef.key;
+        anc.hashid = redId;
 
+        childRef.set(anc, function (err) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+
+                deferred.resolve({
+                    text: "success"
+                });
+            } //if/else
+        });
+
+        return deferred.promise;
+    } //postAnnouncement
+
+    function updateAnnouncement(hash,value) {
+        if (db == null) {
+            db = firebase.database();
+        }
+
+        if (!hash) {
+            return;
+        }
+
+        db.ref("announcements").child(hash).update({
+            selected: value
+        });
+    }
+
+    function announcementsChildAdded() {
+        // db.ref("announcements").on("child_added",function(snap){
+
+        // });
+    }
+
+    function getAnnouncements() {
+
+        var data = []
+        var deferred = $q.defer();
+        if (db == null) {
+            db = firebase.database();
+        }
+
+        db.ref("announcements").on("child_added", function (snap) {
+            var ann = snap.val();
+            data.push(ann);
+            //we return right after first child
+            deferred.resolve(data);
+        });
+        return deferred.promise;
+    } //getAnnouncements
+
+
+    function selectedActiveUpdates() {
+        return db.ref("announcements");
+    }
     var service = {
         initFirebase: initFirebase,
         uploadImages: uploadImages,
         uploadPost: uploadPost,
         getAllPosts: getAllPosts,
         deleteImageFromStorage: deleteImageFromStorage,
-        updatePost: updatePost
+        updatePost: updatePost,
+        selectedActiveUpdates: selectedActiveUpdates,
+
+        getAnnouncements: getAnnouncements,
+        updateAnnouncement: updateAnnouncement,
+        postAnnouncement: postAnnouncement
 
     };
 

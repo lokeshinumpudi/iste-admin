@@ -1,0 +1,48 @@
+<div>
+    <form class="ui form" ng-submit="$ctrl.uploadAnc()">
+        <div class="fields">
+            <div class="six wide field">
+                <label for="anc"></label>
+                <input id="anc" required placeholder="Enter Announcement" type="text" ng-model="$ctrl.formfields.announcement" name="announcement"
+                    value="">
+            </div>
+            <div class="six wide field">
+                <label for="link"></label>
+                <input id="link" required placeholder="Enter Link ex=> (https://xyz.com/newAnnouncement)" type="text" ng-model="$ctrl.formfields.link"
+                    name="announcement link" value="">
+            </div>
+            <div class=" four wide field">
+                <label for=""></label>
+                <input class="ui basic button" type="submit" value="Upload">
+            </div>
+        </div>
+    </form>
+    <div class="ui segment">
+<div style="font-size: 20px;position: relative;left: 45%;">
+        <a target="_blank" href="https://istegriet.herokuapp.com/#/"> Live preview </a>
+    </div>
+    </div>
+    
+    <div>
+        <div class="ui header">
+            Selected announcements [max:3] [default:last added Announcement]
+        </div>
+        <div ng-repeat="eachAnouncement in $ctrl.selectedannouncements" target="_blank" class="ui label">
+            {{eachAnouncement.announcement}}
+            <i class="remove icon" ng-click="$ctrl.removeAnnouncement(eachAnouncement)"></i>
+            <a ng-href="eachAnouncement.link" target="_blank"><i class="linkify icon"></i> </a>
+        </div>
+    </div>
+    <div class="ui segment">
+        <div class="ui header">
+            All Announcements []
+        </div>
+        <div class="ui labels">
+            <div ng-repeat="eachAnouncement in $ctrl.allannouncements" target="_blank" class="ui label">
+                {{eachAnouncement.announcement}}
+                <i class="add circle icon" ng-click="$ctrl.selectAnnouncement(eachAnouncement)"></i>
+                <a ng-href="eachAnouncement.link" target="_blank"><i class="linkify icon"></i> </a>
+            </div>
+        </div>
+    </div>
+</div>

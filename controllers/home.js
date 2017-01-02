@@ -4,13 +4,10 @@ angular.module("isteAdmin")
 homeCtrl.$inject = ["$scope", "fbase"];
 
 function homeCtrl($scope, fbase) {
-
     // intially empty
     $scope.editPostData = null;
-
     // current state of edit
     $scope.underEditing = false;
-
     //all posts data
     $scope.allPosts = null;
     //Entire data of posts  
@@ -19,8 +16,6 @@ function homeCtrl($scope, fbase) {
     }).catch(function (err) {
         console.error(err);
     }); //getAllPosts
-
-
     $scope.getSelectedPost = function (post) {
             if (!$scope.underEditing) {
                 console.log(post);
@@ -32,11 +27,6 @@ function homeCtrl($scope, fbase) {
             $scope.underEditing = true;
         } //getSelectedPost
 } //controller end
-
-
-
-
-
 
 angular.module("isteAdmin")
     .directive("scrollingPosts", scrollingPosts);
@@ -51,7 +41,6 @@ function scrollingPosts() {
         },
         templateUrl: "partials/scrollingposts.html",
         link: function ($scope, $ele, $attrs) {
-
             $scope.selectPostToEdit = function (post) {
                     //check if post is editable(i.e new post wich was uploaded through this service)
                     if (post.isPostEditable != undefined && post.isPostEditable) {
@@ -59,7 +48,7 @@ function scrollingPosts() {
                         $scope.callfnc({
                             message: post
                         });
-                    }else{
+                    } else {
                         alert("This post cant be edited! Scroll down");
                     }
                 } //editPost

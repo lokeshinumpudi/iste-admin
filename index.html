@@ -4,6 +4,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="" href="libsmin/semantic.min.css">
     <style>
+        .ui.label .icon {
+            position: relative;
+            right: -10px;
+            font-size: 1.4em !important;
+        }
+
+        .ui.label .icon:hover{
+            color: brown;
+        }
+        
         .center {
             position: relative;
             left: 45%;
@@ -204,12 +214,10 @@
 </head>
 
 <body>
-    <div class="ui pointing menu">
-        <a class="item active" href="#!/">
-    Home
-  </a>
-        <a class="item" href="#!/newpost">New Post
-        </a>
+    <div class="ui pointing menu" ng-controller="navigationCtrl as nctrl">
+        <a class="item " ng-class="{active:nctrl.activetab == 'home'}" href="#!/"> Home</a>
+        <a class="item" ng-class="{active:nctrl.activetab == 'newpost'}" href="#!/newpost">New Post</a>
+        <a class="item" ng-class="{active:nctrl.activetab == 'announcements'}" href="#!/announcements">Announcements</a>
         <!--<a class="item">
     Friends
   </a>-->
@@ -231,6 +239,7 @@
     <script src="app.js"></script>
     <script src="services/firebase.js"></script>
     <script src="services/utils.js"></script>
+    <script src="components/announcement.component.js"></script>
     <script src="controllers/home.js"></script>
     <script src="controllers/newPostCtrl.js"></script>
     <script src="directives/postHandler.js"></script>
