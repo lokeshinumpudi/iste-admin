@@ -2,7 +2,7 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="" href="libsmin/semantic.min.css">
+    <link rel="stylesheet" type="" href="libraries/semantic.min.css">
     <style>
         .ui.label .icon {
             position: relative;
@@ -233,8 +233,8 @@
     <div class="ui segment">
         <ng-view></ng-view>
     </div>
-    <script src="libsmin/angular/angular.min.js"></script>
-    <script src="libsmin/angular/angular-route.min.js"></script>
+    <script src="libraries/angular/angular.min.js"></script>
+    <script src="libraries/angular/angular-route.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
     <script src="app.js"></script>
     <script src="services/firebase.js"></script>
