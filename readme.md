@@ -1,7 +1,6 @@
 # CMS : IsteGriet
    
-    This site allows the core ISTE team to manage content on the 
-    user facing live site!  
+    This site allows the core ISTE team to manage content on the user facing live site!  
 
 # Technologies-used   
  `Angular.js` , `Firebase`-(Auth,Database,Storage). 
