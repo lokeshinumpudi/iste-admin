@@ -1,5 +1,5 @@
-CMS : IsteGriet
-   ===
+# CMS : IsteGriet
+   
     This site allows the core ISTE team to manage content on the 
     user facing live site!  
 
