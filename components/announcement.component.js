@@ -30,7 +30,7 @@ function ancCtrl(fbase) {
         } //uploadAnc
         //
     fbase.getAnnouncements().then(function (data) {
-        console.log(data);
+        // console.log(data);
         ancctrl.allannouncements = data;
         manageActiveAnnc(data);
     }).catch((err) => {
