@@ -1,3 +1,5 @@
+<!--post:directive-->
+
 <div class="ui container">
     <div class="ui  segment">
         <form class="ui form" ng-submit="submitForm()">
@@ -75,7 +77,8 @@
             <div class="center" ng-if="liveUrl">  
                 <a ng-href="{{liveUrl}}" target="_blank">Click To See Preview</a> 
              </div>
-            <div class="ui inverted  segment" style="top: 100px;position: relative">
+             <!--post or update button-->
+            <div class="ui inverted  segment" style="top: 10px;">
                 <input type="submit" class="fluid ui inverted green button"  value="{{postSubmitTypeText}}"/>
             </div>
         </div>

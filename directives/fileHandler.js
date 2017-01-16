@@ -32,12 +32,8 @@ function handleFiles(utils, fbase, $window) {
                 $scope.uploadsCounter = 0;
                 //will be filled by fileObjects selected by user [for multiple files]
                 var files = [];
-
                 //reference to element with file input
                 var fileElementRef;
-
-
-
                 //populate file if edit mode
 
                 function populateFilesOnEditModeFromServer(post) {
@@ -48,7 +44,6 @@ function handleFiles(utils, fbase, $window) {
                     if (post.galleryFilesStorageMeta == undefined) {
                         post.galleryFilesStorageMeta = [];
                     }
-
 
                     if ($scope.isMultiple != "true") {
                         // single file
@@ -61,32 +56,23 @@ function handleFiles(utils, fbase, $window) {
                         files.push(tempServerSingleObj);
                     } else {
                         //multiple files
-
                         for (var i = 0; i < post.gallery.length; i++) {
                             var tempServerMultipleObj = {};
                             var eachpostobj = post.galleryFilesStorageMeta[i];
-
                             tempServerMultipleObj.islocalUpload = false;
                             tempServerMultipleObj.isImage = true;
                             tempServerMultipleObj.localImageUrl = eachpostobj.url;
                             tempServerMultipleObj.serverMetaOfImage = eachpostobj;
-
                             files.push(tempServerMultipleObj);
                         } //for
-
                     } //if/else
-
                     //now we can update $scope i think!
-
                     $scope.files = files;
                     // console.log(files);
-
-
                 } //populateFilesOnEditModeFromServer
                 if ($scope.posttype == "editPost") {
                     populateFilesOnEditModeFromServer($scope.prefilleddata);
                 }
-
 
                 function populateFilesFromUserComputer(fileList, isMultiple) {
                     //reset if not multiple files
@@ -140,13 +126,48 @@ function handleFiles(utils, fbase, $window) {
                     // console.log(files);
                 }
 
+
+                //handles files added through input[type=file] element
+                var inputFilesHandlerListener = function (e) {
+                    console.log(e.target);
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    fileElementRef = e.target;
+                    var fileList = e.target.files;
+
+                    //before handling file check to see if there is any server received image already rendered
+                    if ($scope.posttype == "editPost" && $scope.isMultiple != "true") {
+                        //now we may have already rendered post
+                        //check files object, if its not local
+                        if (files.length >= 1) {
+                            // console.log(files[0].islocalUpload);
+                            if (!files[0].islocalUpload) {
+                                //alert file will be removed permanently from server
+                                //todo: firebase:storage -> remove the file in storage
+                                alert("The current file will be deleted as Title pic");
+
+                            } else {
+                                // console.log("wtf");
+                            }
+                        } //length
+                    } //editPost
+                    populateFilesFromUserComputer(fileList);
+                    handleFiles(files);
+
+                }; //inputFilesHandlerListener
+
                 //if multiple files we use Drag & drop
+                //Add support for input[type=file multiple=true] for mobile support
                 if ($scope.isMultiple == "true") {
-                    // console.log("hwy");
                     // drag & drop events
                     ele.bind("dragenter", dragenter);
                     ele.bind("dragover", dragover);
                     ele.bind("drop", drop);
+
+                    //mobile support for input element
+                    var insidediv = angular.element(ele[0]);
+                    insidediv.bind("change", inputFilesHandlerListener);
 
                     function dragenter(e) {
                         e.stopPropagation();
@@ -170,38 +191,7 @@ function handleFiles(utils, fbase, $window) {
                 } else {
                     // for single files we use just input element
                     var insidediv = angular.element(ele[0]);
-                    insidediv.bind('change', fileChangeListener);
-
-                    function fileChangeListener(e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-
-                        fileElementRef = e.target;
-                        var fileList = e.target.files;
-
-
-                        //before handling file check to see if there is any server received image already rendered
-                        if ($scope.posttype == "editPost") {
-                            //now we may have already rendered post
-                            //check files object, if its not local
-                            if (files.length >= 1) {
-                                // console.log(files[0].islocalUpload);
-                                if (!files[0].islocalUpload) {
-                                    //alert file will be removed permanently from server
-                                    alert("The current file will be deleted as Title pic");
-
-
-
-                                } else {
-                                    // console.log("wtf");
-                                }
-
-                            } //length
-                        } //editPost
-
-                        populateFilesFromUserComputer(fileList);
-                        handleFiles(files);
-                    }
+                    insidediv.bind('change', inputFilesHandlerListener);
 
                 } //if/else {ismultiple} option
 
@@ -221,9 +211,7 @@ function handleFiles(utils, fbase, $window) {
                 $scope.removeSelection = function (index) {
                         //remove the file from selection, if server file also clear from server
                         var slicedfile = files.splice(index, 1);
-
                         //tell post controller to remove this particular image from its state
-                        //
                         postController.removeImage(slicedfile, $scope.isMultiple);
                         //for single files
                         if ($scope.isMultiple == 'false') {
@@ -233,10 +221,7 @@ function handleFiles(utils, fbase, $window) {
                             }
                         }
                     } //removeSelection
-
-                //upload to firebase
-
-
+                    //upload to firebase
                 function toUploadFilesCount() {
                     var count = 0;
                     files.forEach(function (file) {
@@ -249,38 +234,30 @@ function handleFiles(utils, fbase, $window) {
                 }
 
                 $scope.uploadToFirebase = function (hey) {
-
                         //stores the fb->storage returned metadata of uploaded file
                         var uploadedfiles = [];
-
                         if (files.length == 0) {
                             return;
                         }
                         // prevent multiple uploads if once done
                         $scope.uploadOnceDone = true;
-
                         files.forEach(function (file) {
                             //service function to upload file to storage
                             //upload only localUploaded files to storage [not files already retreived from server]
-
                             if (!file.islocalUpload) {
                                 return;
                             }
                             fbase.uploadImages(file).then(function (metadata) {
                                 // increment counter to update ui
                                 $scope.uploadsCounter += 1;
-
                                 //send if this is multiple files or not
                                 var isMultiple = $scope.isMultiple === 'true';
-
                                 uploadedfiles.push({
                                     fullPath: metadata.fullPath,
                                     isMultiple: isMultiple,
                                     name: metadata.name,
                                     url: metadata.downloadURLs[0]
                                 });
-
-
                                 //check if all files are uploaded or not
                                 // console.log(toUploadFilesCount(),"function")
                                 // console.log($scope.uploadsCounter,"counter");
@@ -308,8 +285,6 @@ function handleFiles(utils, fbase, $window) {
                         }
                     });
                 } //updateImageUi
-
-
             } //link function end
 
     } //return

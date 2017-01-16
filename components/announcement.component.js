@@ -11,6 +11,8 @@ function ancCtrl(fbase) {
         selected: false
     }
 
+
+
     function clearForm() {
         ancctrl.formfields = {
             announcement: "",

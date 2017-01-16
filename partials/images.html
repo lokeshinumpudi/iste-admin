@@ -1,7 +1,11 @@
+<!--fileHandler:@directive-->
+
 <div>
     <!--Multiple images option-->
     <div ng-if="isMultiple== 'true' && !uploadOnceDone " class="dropbox center">
-        Drop the required files here
+         <input id="multipleImagesInput" type="file" multiple=true  name="Multiple images upload">
+        Drop the required files here 
+        
     </div>
     <!--Single image option-->
     <div class="field" ng-if="isMultiple == 'false' && !uploadOnceDone">

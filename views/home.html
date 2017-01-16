@@ -1,6 +1,7 @@
 <div>
     <!--<post posttype="editPost" postdata="postData"></post>-->
     <div class="ui stackable grid">
+
         <div class="twelve wide column">
             <div ng-if="editPostData">
                 <post posttype="editPost" postdata="editPostData"></post>
@@ -9,10 +10,11 @@
                 Select a post to Edit!
             </div>
         </div>
-        <div class="four wide column">
+
+        <div class="four wide column side-menu">
             <scrolling-posts ng-if="allPosts !=null" data="allPosts" callfnc="getSelectedPost(message)"></scrolling-posts>
-            
         </div>
+
     </div>
 
     <div ng-if="allPosts==null" class="ui active inverted dimmer">

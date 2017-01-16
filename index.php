@@ -1,6 +1,7 @@
 <html ng-app="isteAdmin">
 
 <head>
+    <title>ISTE-ADMIN</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="" href="libraries/semantic.min.css">
     <style>
@@ -9,8 +10,8 @@
             right: -10px;
             font-size: 1.4em !important;
         }
-
-        .ui.label .icon:hover{
+        
+        .ui.label .icon:hover {
             color: brown;
         }
         
@@ -81,6 +82,10 @@
         /*mobile styles*/
         
         @media only screen and (max-width:600px) {
+            .side-menu {
+                position: relative;
+                top: 15%;
+            }
             .gallery .item {
                 margin: 0.4rem 0.5rem !important;
                 width: 115px !important;

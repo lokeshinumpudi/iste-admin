@@ -1,9 +1,9 @@
 angular.module("isteAdmin")
     .controller("homeCtrl", homeCtrl);
 
-homeCtrl.$inject = ["$scope", "fbase"];
+homeCtrl.$inject = ["$scope", "fbase","$location"];
 
-function homeCtrl($scope, fbase) {
+function homeCtrl($scope, fbase,$location) {
     // intially empty
     $scope.editPostData = null;
     // current state of edit
@@ -17,14 +17,18 @@ function homeCtrl($scope, fbase) {
         console.error(err);
     }); //getAllPosts
     $scope.getSelectedPost = function (post) {
+        // todo: easy switching between posts 
             if (!$scope.underEditing) {
                 console.log(post);
                 // if not under already editing mode update the editing model data 
                 $scope.editPostData = post;
             } else {
-                alert("Post under editing already!");
+                alert("Post under editing already! Refresh and select new post to edit");
+                $location.reload();
+
             }
             $scope.underEditing = true;
+         
         } //getSelectedPost
 } //controller end
 
